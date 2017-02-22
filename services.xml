@@ -2,7 +2,7 @@
             <name>ITIL Services</name>
             <key>service</key>
             <state>stable</state>
-            <logo>http://link/to/logo/with/dimensions/40px/40px</logo>
+            <logo>http://nologo.com</logo>
             <description>
                <short>
                   <en>This plugin all to document services information in the enterprise based on ITIL concept.  Plugin based on Webapplication plugin</en>
@@ -41,7 +41,5 @@
             </tags>
             <screenshots>
                <screenshot>https://github.com/bacus99/Services/screenshots/services.png</screenshot>
-               <screenshot>...</screenshot>
-               <screenshot>...</screenshot>
             </screenshots>
          </root>
