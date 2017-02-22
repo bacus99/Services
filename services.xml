@@ -1,24 +1,24 @@
          <root>
             <name>ITIL Services</name>
-            <key>service</key>
+            <key>servicee</key>
             <state>stable</state>
-            <logo>http://nologo.com</logo>
+            <logo>http://link/to/logo/with/dimensions/40px/40px</logo>
             <description>
                <short>
-                  <en>This plugin all to document services information in the enterprise based on ITIL concept.  Plugin based on Webapplication plugin</en>
+                  <en>short description of the plugin, displayed on list, text only</en>
                   <lang>...</lang>
                </short>
                <long>
-                  <en>Based on ITIL concept, allowing service documentation (Owner, category, TCO, DR, ...)</en>
+                  <en>short description of the plugin, displayed on detail, Markdown accepted</en>
                   <lang>...</lang>
                </long>
             </description>
-            <homepage>https://github.com/bacus99/Services</homepage>
-            <download>https://github.com/bacus99/Services</download>
-            <issues>https://github.com/bacus99/Services/issues</issues>
-            <readme>https://github.com/bacus99/Services/blob/master/README.md</readme>
+            <homepage>http://link/to/your/page</homepage>
+            <download>http://link/to/your/files</download>
+            <issues>http://link/to/your/issues</issues>
+            <readme>http://link/to/your/readme</readme>
             <authors>
-               <author>bacus99</author>
+               <author>Your name</author>
             </authors>
             <versions>
                <version>
@@ -33,13 +33,15 @@
             <license>GPL v2+</license>
             <tags>
                <en>
-                  <tag>ITIL</tag>
+                  <tag>tag1</tag>
                </en>
                <lang>
-                  <tag>Services</tag>
+                  <tag>tag1</tag>
                </lang>
             </tags>
             <screenshots>
-               <screenshot>https://github.com/bacus99/Services/screenshots/services.png</screenshot>
+               <screenshot>http://link/to/your/screenshot</screenshot>
+               <screenshot>http://link/to/your/screenshot</screenshot>
+               <screenshot>...</screenshot>
             </screenshots>
          </root>
