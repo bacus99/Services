@@ -9,7 +9,7 @@
  -------------------------------------------------------------------------
 
  LICENSE
-      
+		
  This file is part of Services.
 
  Services is free software; you can redistribute it and/or modify
@@ -27,7 +27,7 @@
  --------------------------------------------------------------------------
  */
 
-if (strpos($_SERVER['PHP_SELF'],"dropdownTypeServices.php")) {
+if (strpos($_SERVER['PHP_SELF'],"dropdownTypeWebApplications.php")) {
    include ('../../../inc/includes.php');
    header("Content-Type: text/html; charset=UTF-8");
    Html::header_nocache();

@@ -451,6 +451,14 @@ class PluginServicesService extends CommonDBTM {
       echo "<th>".__('Owner information', 'Services')."</th>";
       echo "</tr>";
 
+	  //application specialist
+      echo "<td>".__('Application specialist')."</td><td>";
+      User::dropdown(array('name' => "users_id_app",
+                           'value'  => $this->fields["users_id_app"],
+                           'entity' => $this->fields["entities_id"],
+                           'right'  => 'interface'));
+      echo "</td>";
+	  
 	  //Technical owner
       echo "<td>".__('Technical owner')."</td><td>";
       User::dropdown(array('name' => "users_id_tech",
@@ -459,24 +467,8 @@ class PluginServicesService extends CommonDBTM {
                            'right'  => 'interface'));
       echo "</td>";
 	  
-	  //application specialist
-      echo "<td>".__('Application specialist')."</td><td>";
-      User::dropdown(array('name' => "users_id_app",
-                           'value'  => $this->fields["users_id_app"],
-                           'entity' => $this->fields["entities_id"],
-                           'right'  => 'interface'));
-      echo "</td>";
-
 	  //  ---- End of 2 -----
 	  echo "<tr class='tab_bg_1'>";
-	  
-	  //secondary Technical owner
-      echo "<td>".__('Secondary Technical owner')."</td><td>";
-      User::dropdown(array('name' => "users_id_sectech",
-                           'value'  => $this->fields["users_id_sectech"],
-                           'entity' => $this->fields["entities_id"],
-                           'right'  => 'interface'));
-      echo "</td>";
 	  
 	  //secondary application specialist
       echo "<td>".__('Secondary Application specialist')."</td><td>";
@@ -486,6 +478,14 @@ class PluginServicesService extends CommonDBTM {
                            'right'  => 'interface'));
       echo "</td>";
 
+	  //secondary Technical owner
+      echo "<td>".__('Secondary Technical owner')."</td><td>";
+      User::dropdown(array('name' => "users_id_sectech",
+                           'value'  => $this->fields["users_id_sectech"],
+                           'entity' => $this->fields["entities_id"],
+                           'right'  => 'interface'));
+      echo "</td>";
+	 
 	  //  ---- End of 2 -----
 	  echo "<tr class='tab_bg_1'>";
 	  
