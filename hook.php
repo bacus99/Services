@@ -35,7 +35,7 @@ function plugin_services_install() {
    $update = false;
    if (TableExists("glpi_plugin_services_services")){
 
-      $DB->runFile(GLPI_ROOT ."/plugins/services/sql/empty-2.0.0.sql");
+      $DB->runFile(GLPI_ROOT ."/plugins/services/sql/empty-1.0.0.sql");
 
    } /* else {
       
@@ -128,7 +128,7 @@ function plugin_services_uninstall() {
    $tables = array("glpi_plugin_services_services",
                    "glpi_plugin_services_servicetypes",
                    "glpi_plugin_services_servicesupports",
-                   //"glpi_plugin_services_serviceservertypes",
+                   "glpi_plugin_services_serviceservertypes",
                    "glpi_plugin_services_servicetiers",
                    "glpi_plugin_services_services_items");
 
@@ -166,7 +166,7 @@ function plugin_services_uninstall() {
 }
 
 
-// Define dropdown relations
+/* // Define dropdown relations
 function plugin_services_getDatabaseRelations() {
 
    $plugin = new Plugin();
@@ -178,9 +178,9 @@ function plugin_services_getDatabaseRelations() {
                    "glpi_plugin_services_servicesupports"
                         => array("glpi_plugin_services_services"
                                     => "plugin_services_servicesupports_id"),
-/* 				   "glpi_plugin_services_serviceservertypes"
+ 				   "glpi_plugin_services_serviceservertypes"
                         => array("glpi_plugin_services_services"
-                                    =>"plugin_services_serviceservertypes_id"), */
+                                    =>"plugin_services_serviceservertypes_id"),
                    "glpi_plugin_services_servicetiers"
                         => array("glpi_plugin_services_services"
                                     =>"plugin_services_servicetiers_id"),
@@ -203,8 +203,41 @@ function plugin_services_getDatabaseRelations() {
 								 "glpi_plugin_services_servicesupports" => "entities_id"));
    }
    return array();
-}
+} */
+// Define dropdown relations
+function plugin_services_getDatabaseRelations() {
 
+   $plugin = new Plugin();
+
+   if ($plugin->isActivated("services")) {
+      return array("glpi_plugin_services_servicetypes"
+                        => array("glpi_plugin_services_services"
+                                    => "plugin_services_servicetypes_id"),
+                   "glpi_plugin_services_serviceservertypes"
+                        => array("glpi_plugin_services_services"
+                                    =>"plugin_services_serviceservertypes_id"),
+                   "glpi_plugin_services_servicetechnics"
+                        => array("glpi_plugin_services_services"
+                                    =>"plugin_services_servicetechnics_id"),
+                   "glpi_users"
+                        => array("glpi_plugin_services_services" => "users_id_tech"),
+                   "glpi_groups"
+                        => array("glpi_plugin_services_services" => "groups_id_tech"),
+                   "glpi_suppliers"
+                        => array("glpi_plugin_services_services" => "suppliers_id"),
+                   "glpi_manufacturers"
+                        => array("glpi_plugin_services_services" => "manufacturers_id"),
+                   "glpi_locations"
+                        => array("glpi_plugin_services_services" => "locations_id"),
+                   "glpi_plugin_services_services"
+                        => array("glpi_plugin_services_services_items"
+                                    => "plugin_services_services_id"),
+                   "glpi_entities"
+                        => array("glpi_plugin_services_services"     => "entities_id",
+                                 "glpi_plugin_services_servicetypes" => "entities_id"));
+   }
+   return array();
+}
 
 // Define Dropdown tables to be manage in GLPI :
 function plugin_services_getDropdown() {
@@ -245,6 +278,40 @@ function plugin_services_getAddSearchOptions($itemtype) {
       if (Session::haveRight("plugin_services", READ)) {
          $sopt[1310]['table']          = 'glpi_plugin_services_services';
          $sopt[1310]['field']          = 'name';
+         $sopt[1310]['name']           = PluginServicesService::getTypeName(2)." - ".
+                                         __('Name');
+         $sopt[1310]['forcegroupby']   = true;
+         $sopt[1310]['datatype']       = 'itemlink';
+         $sopt[1310]['massiveaction']  = false;
+         $sopt[1310]['itemlink_type']  = 'PluginServicesService';
+         $sopt[1310]['joinparams']     = array('beforejoin'
+                                                   => array('table'      => 'glpi_plugin_services_services_items',
+                                                            'joinparams' => array('jointype' => 'itemtype_item')));
+                                                            
+         $sopt[1311]['table']          = 'glpi_plugin_services_servicetypes';
+         $sopt[1311]['field']          = 'name';
+         $sopt[1311]['name']           = PluginServicesService::getTypeName(2)." - ".
+                                         PluginServicesServiceType::getTypeName(1);
+         $sopt[1311]['forcegroupby']   = true;
+         $sopt[1311]['datatype']       = 'dropdown';
+         $sopt[1311]['massiveaction']  = false;
+         $sopt[1311]['joinparams']     = array('beforejoin' => array(
+                                                      array('table'      => 'glpi_plugin_services_services',
+                                                            'joinparams' => $sopt[1310]['joinparams'])));
+      }
+   }
+
+   return $sopt;
+}
+/* function plugin_services_getAddSearchOptions($itemtype) {
+
+   $sopt = array();
+
+   if (in_array($itemtype, PluginServicesService::getTypes(true))) {
+      
+      if (Session::haveRight("plugin_services", READ)) {
+         $sopt[1310]['table']          = 'glpi_plugin_services_services';
+         $sopt[1310]['field']          = 'name';
          $sopt[1310]['name']           = PluginServicesService::getTypeName(2)." - ". __('Name');
          $sopt[1310]['forcegroupby']   = true;
          $sopt[1310]['datatype']       = 'itemlink';
@@ -264,7 +331,7 @@ function plugin_services_getAddSearchOptions($itemtype) {
                                                       array('table'      => 'glpi_plugin_services_services',
                                                             'joinparams' => $sopt[1310]['joinparams'])));
          
-		 $sopt[1312]['table']          = 'glpi_plugin_services_servicesupport';
+/* 		 $sopt[1312]['table']          = 'glpi_plugin_services_servicesupports';
          $sopt[1312]['field']          = 'name';
          $sopt[1312]['name']           = PluginServicesService::getTypeName(2)." - ". PluginServicesServiceSupport::getTypeName(1);
          $sopt[1312]['forcegroupby']   = true;
@@ -272,12 +339,12 @@ function plugin_services_getAddSearchOptions($itemtype) {
          $sopt[1312]['massiveaction']  = false;
          $sopt[1312]['joinparams']     = array('beforejoin' => array(
                                                       array('table'      => 'glpi_plugin_services_services',
-                                                            'joinparams' => $sopt[1310]['joinparams'])));
-	  }
+                                                            'joinparams' => $sopt[1310]['joinparams']))); */
+/* 	  }
    }
 
    return $sopt;
-}
+} */ 
 
 //display custom fields in the search
 function plugin_services_giveItem($type, $ID, $data, $num) {

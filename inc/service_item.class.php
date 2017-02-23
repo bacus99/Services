@@ -888,7 +888,7 @@ class PluginServicesService_Item extends CommonDBRelation {
       }
    }
 
-   static function displayTabContentForPDF(PluginPdfSimplePDF $pdf, CommonGLPI $item, $tab) {
+/*    static function displayTabContentForPDF(PluginPdfSimplePDF $pdf, CommonGLPI $item, $tab) {
 
       if ($item->getType()=='PluginServicesService') {
          self::ItemsPdf($pdf, $item);
@@ -898,7 +898,7 @@ class PluginServicesService_Item extends CommonDBRelation {
          return false;
       }
       return true;
-   }
+   } */
 
 }
 ?>

@@ -39,7 +39,7 @@ class PluginServicesServiceSupport extends CommonDropdown {
    
    static function getTypeName($nb=0) {
 
-      return _n('Support Period','Support Periods',$nb, 'services');
+      return _n('Support Period','Support Periods',$nb, 'Support Periods');
    }
 
    static function transfer($ID, $entity) {
@@ -49,7 +49,7 @@ class PluginServicesServiceSupport extends CommonDropdown {
          // Not already transfer
          // Search init item
          $query = "SELECT *
-                   FROM `glpi_plugin_services_servicesupport`
+                   FROM `glpi_plugin_services_servicesupports`
                    WHERE `id` = '$ID'";
 
          if ($result=$DB->query($query)) {

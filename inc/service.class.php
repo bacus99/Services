@@ -251,7 +251,7 @@ class PluginServicesService extends CommonDBTM {
       $tab[115]['datatype']        = 'dropdown';
       $tab[115]['right']           = 'interface';
 
-	  // Service Support time
+	  // Service support time
       $tab[120]['table']           = 'glpi_plugin_services_servicesupports';
       $tab[120]['field']           = 'name';
       $tab[120]['name']            = PluginServicesServiceSupport::getTypeName(1);
@@ -363,7 +363,7 @@ class PluginServicesService extends CommonDBTM {
       Html::autocompletionTextField($this,"name");
       echo "</td>";
 	  
-	  //support of services
+	  //time of services
       echo "<td>".PluginServicesServiceSupport::getTypeName(1)."</td>";
       echo "<td>";
       Dropdown::show('PluginServicesServiceSupport',
