@@ -246,8 +246,8 @@ function plugin_services_getDropdown() {
    $plugin = new Plugin();
 
    if ($plugin->isActivated("services")) {
-      return array('PluginServicesServiceType'
-                        => PluginServicesServiceType::getTypeName(2),
+      return array('PluginServicesService'
+                        => PluginServicesService::getTypeName(2),
                    'PluginServicesServiceServerType'
                         => PluginServicesServiceServerType::getTypeName(2));
 /*                    'PluginServicesServiceTechnic'

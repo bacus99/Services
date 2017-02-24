@@ -318,9 +318,9 @@ class PluginServicesService extends CommonDBTM {
       if (isset($input['date_query']) 
          && empty($input['date_query'])) 
             $input['date_query']='NULL';
-      if (isset($input['date_expiration']) 
-         && empty($input['date_expiration'])) 
-            $input['date_expiration']='NULL';
+      if (isset($input['date_next_dr']) 
+         && empty($input['date_next_dr'])) 
+            $input['date_next_dr']='NULL';
 
       return $input;
    }
@@ -330,9 +330,9 @@ class PluginServicesService extends CommonDBTM {
       if (isset($input['date_query']) 
          && empty($input['date_query'])) 
             $input['date_query']='NULL';
-      if (isset($input['date_expiration']) 
-         && empty($input['date_expiration'])) 
-            $input['date_expiration']='NULL';
+      if (isset($input['date_next_dr']) 
+         && empty($input['date_next_dr'])) 
+            $input['date_next_dr']='NULL';
 
       return $input;
    }

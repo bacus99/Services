@@ -66,7 +66,7 @@ function plugin_init_services() {
 function plugin_version_services() {
 
    return array('name'          => _n('ITIL Service' , 'ITIL Services' ,2, 'services'),
-                'version'        => '1.0.1',
+                'version'        => '1.0.3',
                 'license'        => 'GPLv2+',
                 'author'  => "Christian Bernard, based on WebApplications plugin",
                 'minGlpiVersion' => '9.1');

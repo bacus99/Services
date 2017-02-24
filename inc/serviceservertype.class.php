@@ -5,7 +5,7 @@
  Services plugin for GLPI
  Copyright (C) 2003-2011 by the Services Development Team.
 
- https://forge.indepnet.net/projects/webapplications
+ https://forge.indepnet.net/projects/services
  -------------------------------------------------------------------------
 
  LICENSE
@@ -33,7 +33,7 @@ if (!defined('GLPI_ROOT')) {
 
 class PluginServicesServiceServerType extends CommonDropdown {
 
-   static $rightname = "plugin_webapplications";
+   static $rightname = "plugin_services";
    var $can_be_translated  = true;
    
    static function getTypeName($nb=0) {
