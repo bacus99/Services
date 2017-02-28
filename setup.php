@@ -75,7 +75,7 @@ function plugin_init_services() {
       if (!$plugin->isActivated('environment') 
          && Session::haveRight("plugin_services", READ)) {
 
-         $PLUGIN_HOOKS['menu_toadd']['services'] = array('assets'   => 'PluginServicesMenu');
+         $PLUGIN_HOOKS['menu_toadd']['services'] = array('plugins'   => 'PluginServicesMenu');
       }
       
       if (Session::haveRight("plugin_services", UPDATE)) {
