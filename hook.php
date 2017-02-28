@@ -246,12 +246,18 @@ function plugin_services_getDropdown() {
    $plugin = new Plugin();
 
    if ($plugin->isActivated("services")) {
-      return array('PluginServicesService'
-                        => PluginServicesService::getTypeName(2),
-                   'PluginServicesServiceServerType'
-                        => PluginServicesServiceServerType::getTypeName(2));
-/*                    'PluginServicesServiceTechnic'
-                        => PluginServicesServiceTechnic::getTypeName(2)); */
+      return array(	'PluginServicesServiceBusPriority'
+                        => PluginServicesServiceBusPriority::getTypeName(2),
+					'PluginServicesServiceBusRisk'
+                        => PluginServicesServiceBusRisk::getTypeName(2),
+				    'PluginServicesServiceSupport'
+                        => PluginServicesServiceSupport::getTypeName(2),
+                    'PluginServicesServiceRto'
+                        => PluginServicesServiceRto::getTypeName(2),
+                    'PluginServicesServiceRpo'
+					=> PluginServicesServiceRpo::getTypeName(2),
+                    'PluginServicesServiceType'
+                        => PluginServicesServiceType::getTypeName(2));
    }
    return array();
 }
@@ -402,7 +408,7 @@ function plugin_services_MassiveActions($type) {
 
    if (in_array($type,PluginServicesService::getTypes(true))) {
       return array('PluginServicesService'.MassiveAction::CLASS_ACTION_SEPARATOR.'plugin_services_add_item' =>
-                                                              __('Associate a ITIL Service', 'services'));
+                                                              __('Associate a ITIL Service', 'ITIL Services'));
    }
    return array();
 }

@@ -32,8 +32,8 @@ if (strpos($_SERVER['PHP_SELF'],"dropdownTypeServices.php")) {
    header("Content-Type: text/html; charset=UTF-8");
    Html::header_nocache();
 }
-
-Session::checkCentralAccess();
+Session::checkLoginUser();
+//Session::checkCentralAccess();
 
 // Make a select box
 if (isset($_POST["servicetype"])) {
