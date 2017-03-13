@@ -42,6 +42,11 @@ function plugin_init_services() {
                                                                 'initProfile');
    $PLUGIN_HOOKS['assign_to_ticket']['services'] = true;
 
+   if (class_exists('PluginServicesService_Item')) { // only if plugin activated
+      $PLUGIN_HOOKS['plugin_datainjection_populate']['services']
+                                       = 'plugin_datainjection_populate_services';
+   }
+
    // Params : plugin name - string type - number - class - table - form page
    Plugin::registerClass('PluginServicesService',
                          array('linkgroup_tech_types'         => true,
@@ -54,8 +59,39 @@ function plugin_init_services() {
    
    Plugin::registerClass('PluginServicesProfile', array('addtabon' => array('Profile')));
    
-   // Display a menu entry ?
-      $PLUGIN_HOOKS['menu_toadd']['services'] = array('plugins'   => 'PluginServicesMenu');
+   if (class_exists('PluginAccountsAccount')) {
+      PluginAccountsAccount::registerType('PluginServicesService');
+   }
+   
+   if (class_exists('PluginCertificatesCertificate')) {
+      PluginCertificatesCertificate::registerType('PluginServicesService');
+   }
+   
+   //if glpi is loaded
+   if (Session::getLoginUserID()) {
+
+      //if environment plugin is installed
+      $plugin = new Plugin();
+      if (!$plugin->isActivated('environment') 
+         && Session::haveRight("plugin_services", READ)) {
+
+         $PLUGIN_HOOKS['menu_toadd']['services'] = array('plugins'   => 'PluginServicesMenu');
+      }
+      
+      if (Session::haveRight("plugin_services", UPDATE)) {
+         $PLUGIN_HOOKS['use_massive_action']['services']=1;
+      }
+
+      if (Session::haveRight("plugin_services", READ)
+          || Session::haveRight("config",UPDATE)) {
+       }
+
+      // Import from Data_Injection plugin
+//      $PLUGIN_HOOKS['migratetypes']['services']
+ //                                   = 'plugin_datainjection_migratetypes_services';
+      $PLUGIN_HOOKS['plugin_pdf']['PluginServicesService']
+                                 = 'PluginServicesServicePDF';
+   }
    
    // End init, when all types are registered
       $PLUGIN_HOOKS['post_init']['services'] = 'plugin_services_postinit';
@@ -66,7 +102,7 @@ function plugin_init_services() {
 function plugin_version_services() {
 
    return array('name'          => _n('ITIL Service' , 'ITIL Services' ,2, 'services'),
-                'version'        => '1.0.1',
+                'version'        => '1.0.6',
                 'license'        => 'GPLv2+',
                 'author'  => "Christian Bernard, based on WebApplications plugin",
                 'minGlpiVersion' => '9.1');

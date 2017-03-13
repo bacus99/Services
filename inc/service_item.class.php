@@ -451,7 +451,7 @@ class PluginServicesService_Item extends CommonDBRelation {
                                                             'used'   => $used));
             echo "</td><td class='center' width='20%'>";
             echo "<input type='submit' name='additem' value=\"".
-                     __s('Associate a web application', 'services')."\" class='submit'>";
+                     __s('Associate a service', 'services')."\" class='submit'>";
             echo "</td>";
             echo "</tr>";
             echo "</table>";
@@ -821,7 +821,7 @@ class PluginServicesService_Item extends CommonDBRelation {
       global $DB,$CFG_GLPI;
 
       $pdf->setColumnsSize(100);
-      $pdf->displayTitle('<b>'._n('Associated web application','Associated web applications',2, 'services').'</b>');
+      $pdf->displayTitle('<b>'._n('Associated service','Associated services',2, 'services').'</b>');
 
       $ID         = $item->getField('id');
       $itemtype   = get_Class($item);

@@ -9,7 +9,7 @@
  -------------------------------------------------------------------------
 
  LICENSE
-      
+		
  This file is part of Services.
 
  Services is free software; you can redistribute it and/or modify
@@ -32,8 +32,8 @@ if (strpos($_SERVER['PHP_SELF'],"dropdownTypeServices.php")) {
    header("Content-Type: text/html; charset=UTF-8");
    Html::header_nocache();
 }
-
-Session::checkCentralAccess();
+Session::checkLoginUser();
+//Session::checkCentralAccess();
 
 // Make a select box
 if (isset($_POST["servicetype"])) {
