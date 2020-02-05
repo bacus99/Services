@@ -56,28 +56,28 @@ function plugin_init_services() {
                                'ticket_types'            => true,
                                'helpdesk_visible_types'  => true,
                                'addtabon' => 'Supplier'));
-   
+
    Plugin::registerClass('PluginServicesProfile', array('addtabon' => array('Profile')));
-   
+
    if (class_exists('PluginAccountsAccount')) {
       PluginAccountsAccount::registerType('PluginServicesService');
    }
-   
+
    if (class_exists('PluginCertificatesCertificate')) {
       PluginCertificatesCertificate::registerType('PluginServicesService');
    }
-   
+
    //if glpi is loaded
    if (Session::getLoginUserID()) {
 
       //if environment plugin is installed
       $plugin = new Plugin();
-      if (!$plugin->isActivated('environment') 
+      if (!$plugin->isActivated('environment')
          && Session::haveRight("plugin_services", READ)) {
 
          $PLUGIN_HOOKS['menu_toadd']['services'] = array('plugins'   => 'PluginServicesMenu');
       }
-      
+
       if (Session::haveRight("plugin_services", UPDATE)) {
          $PLUGIN_HOOKS['use_massive_action']['services']=1;
       }
@@ -92,7 +92,7 @@ function plugin_init_services() {
       $PLUGIN_HOOKS['plugin_pdf']['PluginServicesService']
                                  = 'PluginServicesServicePDF';
    }
-   
+
    // End init, when all types are registered
       $PLUGIN_HOOKS['post_init']['services'] = 'plugin_services_postinit';
 }
@@ -101,28 +101,53 @@ function plugin_init_services() {
 // Get the name and the version of the plugin - Needed
 function plugin_version_services() {
 
-   return array('name'          => _n('ITIL Service' , 'ITIL Services' ,2, 'services'),
-                'version'        => '1.0.6',
+   return [
+                'name'           => 'ITIL Services',
+                'version'        => '1.3.1',
                 'license'        => 'GPLv2+',
                 'author'  => "Christian Bernard, based on WebApplications plugin",
-                'minGlpiVersion' => '9.1');
+                'requirements'   => [
+                     'glpi' => [
+                     'min'  => '9.3',
+                     'dev' => true
+                      ]
+                 ]
+            ];
 }
 
 
-// Optional : check prerequisites before install : may print errors or add to message after redirect
+
+
+/**
+ * Check pre-requisites before install
+ * OPTIONNAL, but recommanded
+ *
+ * @return boolean
+ */
 function plugin_services_check_prerequisites() {
 
-   if (version_compare(GLPI_VERSION,'9.1','lt') || version_compare(GLPI_VERSION,'9.2','ge')) {
-      _e('This plugin requires GLPI >= 9.1', 'services');
+   $version = rtrim(GLPI_VERSION, '-dev');
+   if (version_compare($version, '9.3', 'lt')) {
+      echo "This plugin requires GLPI 9.3";
       return false;
    }
+
    return true;
 }
 
+// Optional : check prerequisites before install : may print errors or add to message after redirect
 
 // Uninstall process for plugin : need to return true if succeeded : may display messages or add to message after redirect
 function plugin_services_check_config() {
-   return true;
+//   return true;
+   if (true) { // Your configuration check
+      return true;
+   }
+
+   if ($verbose) {
+      echo __('Installed / not configured', 'services');
+   }
+   return false;
 }
 
 ?>
