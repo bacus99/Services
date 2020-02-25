@@ -33,62 +33,25 @@ function plugin_services_install() {
    include_once (GLPI_ROOT."/plugins/services/inc/profile.class.php");
 
    $update = false;
-   if (!TableExists("glpi_application")
-       && !TableExists("glpi_plugin_appweb")
-       && !TableExists("glpi_plugin_services_services")) {
+      if (!$DB->tableExists("glpi_plugin_services_services")) {
 
-      $DB->runFile(GLPI_ROOT ."/plugins/services/sql/empty-1.0.0.sql");
+      $DB->runFile(GLPI_ROOT ."/plugins/services/sql/empty-1.3.1.sql");
 
    } else {
       
-      if (TableExists("glpi_application") && !TableExists("glpi_plugin_appweb")) {
+      if (!$DB->tableExists("glpi_plugin_services_services")) {
          $update = true;
-         $DB->runFile(GLPI_ROOT ."/plugins/services/sql/update-1.1.sql");
-      }
-
-      //from 1.1 version
-      if (TableExists("glpi_plugin_appweb") && !FieldExists("glpi_plugin_appweb","location")) {
-         $update = true;
-         $DB->runFile(GLPI_ROOT ."/plugins/services/sql/update-1.3.sql");
-      }
-
-      //from 1.3 version
-      if (TableExists("glpi_plugin_appweb") && !FieldExists("glpi_plugin_appweb","recursive")) {
-         $update = true;
-         $DB->runFile(GLPI_ROOT ."/plugins/services/sql/update-1.4.sql");
-      }
-
-      if (TableExists("glpi_plugin_appweb_profiles")
-          && FieldExists("glpi_plugin_appweb_profiles","interface")) {
-         $update = true;
-         $DB->runFile(GLPI_ROOT ."/plugins/services/sql/update-1.5.0.sql");
-      }
-
-      if (TableExists("glpi_plugin_appweb")
-              && !FieldExists("glpi_plugin_appweb","helpdesk_visible")) {
-         $update = true;
-         $DB->runFile(GLPI_ROOT ."/plugins/services/sql/update-1.5.1.sql");
-      }
-
-      if (!TableExists("glpi_plugin_services_services")) {
-         $update = true;
-         $DB->runFile(GLPI_ROOT ."/plugins/services/sql/update-1.6.0.sql");
-      }
-      
-      //from 1.6 version
-      if (TableExists("glpi_plugin_services_services") 
-         && !FieldExists("glpi_plugin_services_services","users_id_tech")) {
-         $DB->runFile(GLPI_ROOT ."/plugins/services/sql/update-1.8.0.sql");
+         $DB->runFile(GLPI_ROOT ."/plugins/services/sql/update-1.3.1.sql");
       }
    }
    
-   if (TableExists("glpi_plugin_services_profiles")) {
+   if (!$DB->tableExists("glpi_plugin_services_profiles")) {
    
       $notepad_tables = array('glpi_plugin_services_services');
 
       foreach ($notepad_tables as $t) {
          // Migrate data
-         if (FieldExists($t, 'notepad')) {
+         if (!$DB->fieldExists($t, 'notepad')) {
             $query = "SELECT id, notepad
                       FROM `$t`
                       WHERE notepad IS NOT NULL
