@@ -32,14 +32,14 @@ if (!defined('GLPI_ROOT')) {
 }
 
 // Class for a Dropdown
-class PluginServicesServiceSupport extends CommonDropdown {
+class PluginServicesServiceitowner extends CommonDropdown {
 
    static $rightname = "plugin_services";
    var $can_be_translated  = true;
    
    static function getTypeName($nb=0) {
 
-      return _n('Service Support Level','Services Support Level',$nb, 'Services Support Level');
+      return _n('Product Owners','Product Owner',$nb, 'Product Owner');
    }
 
    static function transfer($ID, $entity) {
@@ -48,15 +48,14 @@ class PluginServicesServiceSupport extends CommonDropdown {
       if ($ID>0) {
          // Not already transfer
          // Search init item
-         $query = "SELECT *
-                   FROM `glpi_plugin_services_servicesupports`
-                   WHERE `id` = '$ID'";
+         $query = "SELECT * FROM `glpi_plugin_services_services`
+					WHERE `id` = '$ID'";
 
          if ($result=$DB->query($query)) {
             if ($DB->numrows($result)) {
                $data                   = $DB->fetch_assoc($result);
                $data                   = Toolbox::addslashes_deep($data);
-               $input['name']          = $data['name'];
+               $input['users_id_itowner']          = $data['users_id_itowner'];
                $input['entities_id']   = $entity;
                $temp                   = new self();
                $newID                  = $temp->getID($input);

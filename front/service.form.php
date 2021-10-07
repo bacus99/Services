@@ -41,6 +41,15 @@ $web_item = new PluginServicesService_Item();
 
 if (isset($_POST["add"])) {
    $web->check(-1,CREATE,$_POST);
+	   	if (isset($_POST['plugin_services_services_id']) && $_POST['plugin_services_services_id'] != '0') {
+		// copy parent's value to child
+		$web->getFromDB($_POST['plugin_services_services_id']);
+		foreach ($web->fields as $key => $value) {
+			if ($key != 'id' && !isset($_POST[$key])) {
+				$_POST[$key] = $value;
+			}
+		}
+	}
    $newID= $web->add($_POST);
    if ($_SESSION['glpibackcreated']) {
       Html::redirect($web->getFormURL()."?id=".$newID);
