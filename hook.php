@@ -4,24 +4,19 @@
  -------------------------------------------------------------------------
  Services plugin for GLPI
  Copyright (C) 2003-2011 by the Services Development Team.
-
  https://forge.indepnet.net/projects/services
  -------------------------------------------------------------------------
-
  LICENSE
       
  This file is part of Services.
-
  Services is free software; you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
  the Free Software Foundation; either version 2 of the License, or
  (at your option) any later version.
-
  Services is distributed in the hope that it will be useful,
  but WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  GNU General Public License for more details.
-
  You should have received a copy of the GNU General Public License
  along with Services. If not, see <http://www.gnu.org/licenses/>.
  --------------------------------------------------------------------------
@@ -33,62 +28,25 @@ function plugin_services_install() {
    include_once (GLPI_ROOT."/plugins/services/inc/profile.class.php");
 
    $update = false;
-   if (!TableExists("glpi_application")
-       && !TableExists("glpi_plugin_appweb")
-       && !TableExists("glpi_plugin_services_services")) {
+      if (!$DB->tableExists("glpi_plugin_services_services")) {
 
-      $DB->runFile(GLPI_ROOT ."/plugins/services/sql/empty-1.0.0.sql");
+      $DB->runFile(GLPI_ROOT ."/plugins/services/sql/empty-1.3.1.sql");
 
    } else {
       
-      if (TableExists("glpi_application") && !TableExists("glpi_plugin_appweb")) {
+      if (!$DB->tableExists("glpi_plugin_services_services")) {
          $update = true;
-         $DB->runFile(GLPI_ROOT ."/plugins/services/sql/update-1.1.sql");
-      }
-
-      //from 1.1 version
-      if (TableExists("glpi_plugin_appweb") && !FieldExists("glpi_plugin_appweb","location")) {
-         $update = true;
-         $DB->runFile(GLPI_ROOT ."/plugins/services/sql/update-1.3.sql");
-      }
-
-      //from 1.3 version
-      if (TableExists("glpi_plugin_appweb") && !FieldExists("glpi_plugin_appweb","recursive")) {
-         $update = true;
-         $DB->runFile(GLPI_ROOT ."/plugins/services/sql/update-1.4.sql");
-      }
-
-      if (TableExists("glpi_plugin_appweb_profiles")
-          && FieldExists("glpi_plugin_appweb_profiles","interface")) {
-         $update = true;
-         $DB->runFile(GLPI_ROOT ."/plugins/services/sql/update-1.5.0.sql");
-      }
-
-      if (TableExists("glpi_plugin_appweb")
-              && !FieldExists("glpi_plugin_appweb","helpdesk_visible")) {
-         $update = true;
-         $DB->runFile(GLPI_ROOT ."/plugins/services/sql/update-1.5.1.sql");
-      }
-
-      if (!TableExists("glpi_plugin_services_services")) {
-         $update = true;
-         $DB->runFile(GLPI_ROOT ."/plugins/services/sql/update-1.6.0.sql");
-      }
-      
-      //from 1.6 version
-      if (TableExists("glpi_plugin_services_services") 
-         && !FieldExists("glpi_plugin_services_services","users_id_tech")) {
-         $DB->runFile(GLPI_ROOT ."/plugins/services/sql/update-1.8.0.sql");
+         $DB->runFile(GLPI_ROOT ."/plugins/services/sql/update-1.3.1.sql");
       }
    }
    
-   if (TableExists("glpi_plugin_services_profiles")) {
+   if (!$DB->tableExists("glpi_plugin_services_profiles")) {
    
       $notepad_tables = array('glpi_plugin_services_services');
 
       foreach ($notepad_tables as $t) {
          // Migrate data
-         if (FieldExists($t, 'notepad')) {
+         if (!$DB->fieldExists($t, 'notepad')) {
             $query = "SELECT id, notepad
                       FROM `$t`
                       WHERE notepad IS NOT NULL
@@ -408,24 +366,20 @@ function plugin_services_MassiveActions($type) {
 
    if (in_array($type,PluginServicesService::getTypes(true))) {
       return array('PluginServicesService'.MassiveAction::CLASS_ACTION_SEPARATOR.'plugin_services_add_item' =>
-                                                              __('Associate a ITIL Service', 'ITIL Services'));
+                                                              __('Associate a TC Service', 'TC Services'));
    }
    return array();
 }
 
 /*
 function plugin_services_MassiveActionsDisplay($options=array()) {
-
    $web = new PluginServicesService();
-
    if (in_array($options['itemtype'], PluginServicesService::getTypes(true))) {
       $web->dropdownWebApplications("plugin_services_services_id");
       echo "<input type=\"submit\" name=\"massiveaction\" class=\"submit\" value=\"" . _sx('button','Post') . "\" >";
    }
    return "";
 }
-
-
 function plugin_services_MassiveActionsProcess($data) {
    
    $web_item = new PluginServicesService_Item();
@@ -433,7 +387,6 @@ function plugin_services_MassiveActionsProcess($data) {
    $res = array('ok' => 0,
                'ko' => 0,
                'noright' => 0);
-
    switch ($data['action']) {
       case "plugin_services_add_item":     
          foreach ($data["item"] as $key => $val) {

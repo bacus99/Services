@@ -1,5 +1,5 @@
 # Services
-GLPI ITIL Services project
+GLPI Services project
 
 The goal of this plugin is to associate servers, devices, printers, ... to a specific service based on ITIL concepts.  
 

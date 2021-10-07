@@ -31,45 +31,14 @@ if (!defined('GLPI_ROOT')) {
    die("Sorry. You can't access directly to this file");
 }
 
-// Class for a Dropdown
-class PluginServicesServiceSupport extends CommonDropdown {
-
+class PluginServicesServiceDrTestType extends CommonDropdown {
+   
    static $rightname = "plugin_services";
    var $can_be_translated  = true;
    
    static function getTypeName($nb=0) {
 
-      return _n('Service Support Level','Services Support Level',$nb, 'Services Support Level');
-   }
-
-   static function transfer($ID, $entity) {
-      global $DB;
-
-      if ($ID>0) {
-         // Not already transfer
-         // Search init item
-         $query = "SELECT *
-                   FROM `glpi_plugin_services_servicesupports`
-                   WHERE `id` = '$ID'";
-
-         if ($result=$DB->query($query)) {
-            if ($DB->numrows($result)) {
-               $data                   = $DB->fetch_assoc($result);
-               $data                   = Toolbox::addslashes_deep($data);
-               $input['name']          = $data['name'];
-               $input['entities_id']   = $entity;
-               $temp                   = new self();
-               $newID                  = $temp->getID($input);
-
-               if ($newID<0) {
-                  $newID = $temp->import($input);
-               }
-
-               return $newID;
-            }
-         }
-      }
-      return 0;
+      return _n('DR Testtype', 'DR Testtypes', $nb, 'DR TestType');
    }
 }
 ?>

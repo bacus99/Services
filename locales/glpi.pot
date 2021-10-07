@@ -19,13 +19,13 @@ msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
 #: hook.php:403 inc/service_item.class.php:454
-msgid "Associate an ITIL Service"
+msgid "Associate an TC Service"
 msgstr ""
 
 #: setup.php:99 inc/menu.class.php:35 inc/profile.class.php:146
 #: inc/service.class.php:45
-msgid "ITIL Service"
-msgid_plural "ITIL Services"
+msgid "TC Service"
+msgid_plural "TC Services"
 msgstr[0] ""
 msgstr[1] ""
 
@@ -43,8 +43,8 @@ msgid "Editor"
 msgstr ""
 
 #: inc/service_item.class.php:814
-msgid "Associated ITIL Service"
-msgid_plural "Associated ITIL Services"
+msgid "Associated TC Service"
+msgid_plural "Associated TC Services"
 msgstr[0] ""
 msgstr[1] ""
 

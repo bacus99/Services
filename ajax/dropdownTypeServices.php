@@ -27,13 +27,13 @@
  --------------------------------------------------------------------------
  */
 
-if (strpos($_SERVER['PHP_SELF'],"dropdownTypeServices.php")) {
-   include ('../../../inc/includes.php');
+if (strpos($_SERVER['PHP_SELF'], "dropdownTypeServices.php")) {
+   include('../../../inc/includes.php');
    header("Content-Type: text/html; charset=UTF-8");
    Html::header_nocache();
 }
-Session::checkLoginUser();
-//Session::checkCentralAccess();
+//Session::checkLoginUser();
+Session::checkCentralAccess();
 
 // Make a select box
 if (isset($_POST["servicetype"])) {
@@ -43,8 +43,8 @@ if (isset($_POST["servicetype"])) {
    if (isset($_POST['used']) && is_array($_POST['used']) && (count($_POST['used']) > 0)) {
       $query = "SELECT `id`
                 FROM `glpi_plugin_services_services`
-                WHERE `id` IN (".implode(',',$_POST['used']).")
-                      AND `plugin_services_servicetypes_id` = '".$_POST["servicetype"]."'";
+                WHERE `id` IN (" . implode(',', $_POST['used']) . ")
+                      AND `plugin_services_servicetypes_id` = '" . $_POST["servicetype"] . "'";
 
       foreach ($DB->request($query) AS $data) {
          $used[$data['id']] = $data['id'];
@@ -52,12 +52,11 @@ if (isset($_POST["servicetype"])) {
    }
 
    Dropdown::show('PluginServicesService',
-                  array('name'      => $_POST['myname'],
+                  ['name'      => $_POST['myname'],
                         'used'      => $used,
                         'width'     => '50%',
                         'entity'    => $_POST['entity'],
                         'rand'      => $_POST['rand'],
-                        'condition' => "glpi_plugin_services_services.plugin_services_servicetypes_id='".$_POST["servicetype"]."'"));
+			'condition' => ["glpi_plugin_services_services.plugin_services_servicetypes_id"=>$_POST["servicetype"]]]);
 
 }
-?>
