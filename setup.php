@@ -96,7 +96,7 @@ function plugin_init_services() {
 function plugin_version_services() {
 
    return [
-                'name'           => 'TC Services',
+                'name'           => 'ITIL Services',
                 'version'        => '1.3.1',
                 'license'        => 'GPLv2+',
                 'author'  => "Christian Bernard, based on WebApplications plugin",
